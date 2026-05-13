@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const inter = Inter({
@@ -49,6 +50,7 @@ export default function RootLayout({
     <html lang="id" className={`${inter.variable} ${jetbrains.variable}`}>
       <body className="min-h-screen bg-background text-ink font-sans antialiased">
         {children}
+        <Analytics />
       </body>
     </html>
   );
