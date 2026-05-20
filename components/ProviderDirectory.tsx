@@ -32,7 +32,7 @@ const GROUPS: Group[] = [
     items: [
       { name: "Rebahin",     tagline: "Film & series Indonesia dan luar negeri dengan subtitle.", quality: "HD", url: "https://rebahinxxi3.online/", glyph: "clap", logo: rebahinLogo },
       { name: "Kita Nonton",  tagline: "Film & series Indonesia terlengkap dan gratis.",          quality: "HD", url: "https://kitanonton2.today/",   glyph: "play", logo: kitanontonLogo },
-      { name: "NgeFilm21",    tagline: "Film & series Indonesia berkualitas tinggi.",             quality: "HD", url: "https://ngefilm21.pw/",        glyph: "cam",  logo: ngefilm21Logo },
+      { name: "NgeFilm21",    tagline: "Film & series Indonesia berkualitas tinggi.",             quality: "HD", url: "https://ngefilm.live/",        glyph: "cam",  logo: ngefilm21Logo },
     ],
   },
   {
