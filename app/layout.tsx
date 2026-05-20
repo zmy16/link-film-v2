@@ -17,10 +17,13 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://goldenmoviehub.local"),
+  metadataBase: new URL("https://www.link-film.eu.org"),
   title: "Golden Movie Hub",
   description:
     "Kumpulan situs streaming film & series Indonesia maupun luar negeri dengan subtitle Bahasa Indonesia.",
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     shortcut: "/icon.svg",
@@ -30,8 +33,16 @@ export const metadata: Metadata = {
     title: "Golden Movie Hub",
     description:
       "Kumpulan situs streaming film & series Indonesia maupun luar negeri dengan subtitle Bahasa Indonesia.",
+    url: "https://www.link-film.eu.org",
+    siteName: "Golden Movie Hub",
     type: "website",
     locale: "id_ID",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Golden Movie Hub",
+    description:
+      "Kumpulan situs streaming film & series Indonesia maupun luar negeri dengan subtitle Bahasa Indonesia.",
   },
   robots: { index: true, follow: true },
 };
