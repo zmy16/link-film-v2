@@ -11,7 +11,7 @@ const config: Config = {
         primary: "#FFD700",
         background: "#0A0A0B",
         surface: "#141416",
-        stroke: "#26262A",
+        stroke: "#3A3A40",
         ink: "#EDEDED",
         muted: "#8A8A90",
       },
@@ -28,7 +28,7 @@ const config: Config = {
         pill: "9999px",
       },
       transitionTimingFunction: {
-        snappy: "linear",
+        snappy: "cubic-bezier(0.16, 1, 0.3, 1)",
       },
       transitionDuration: {
         snappy: "200ms",
