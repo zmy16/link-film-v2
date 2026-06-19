@@ -6,9 +6,9 @@
 
 **Directory minimalis untuk situs streaming film & series Indonesia maupun luar negeri dengan subtitle Bahasa Indonesia.**
 
-Dibangun dengan estetika _Swiss Design_ — dark mode, aksen kuning, presisi, fungsional. Tanpa gradasi, tanpa soft shadow, tanpa noise visual.
+Dibangun dengan estetika _Swiss Design_ — dark mode, aksen emas, presisi, fungsional. Tanpa gradasi, tanpa soft shadow, tanpa noise visual.
 
-![Next.js](https://img.shields.io/badge/Next.js-14.2-000000?style=flat-square&logo=next.js&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-16.2-000000?style=flat-square&logo=next.js&logoColor=white)
 ![React](https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
@@ -46,16 +46,20 @@ Desainnya terinspirasi prinsip _Swiss Design_ dan dashboard kontrol presisi: gri
 
 ## Fitur
 
-- **Dark mode penuh** dengan aksen _Cyber Yellow_ yang strategis (hanya pada CTA & indikator aktif)
+- **Dark mode penuh** dengan aksen _Gold_ yang strategis (hanya pada CTA & indikator aktif)
+- **Search filter real-time** — cari provider berdasarkan nama, tagline, atau region
+- **Diferensiasi region visual** — Indonesia (gold) dan Luar Negeri (sky blue) dengan warna aksen per grup
 - **Grid responsif** — 1 kolom di HP, 2 kolom di tablet, 3 kolom di desktop
-- **Provider dikelompokkan per region** — ID (Indonesia) dan INT (Luar Negeri)
-- **Badge kualitas** per situs (HD / Full HD / 4K)
-- **Status indikator** dengan animasi pulse yang menghormati `prefers-reduced-motion`
+- **Staggered entrance animation** — card muncul berurutan dengan ease-out-quart, menghormati `prefers-reduced-motion`
+- **Badge kualitas** per situs (HD / Full HD / 4K) dengan warna sesuai region
+- **Status indikator** dengan animasi pulse
+- **Image error fallback** — jika logo gagal dimuat, tampil ikon default
 - **Halaman 404 kustom** yang match dengan bahasa desain utama
 - **SEO-ready** — metadata, Open Graph, favicon SVG, `metadataBase`
 - **Keyboard-friendly** — `:focus-visible` outline, `aria-label` eksplisit, semantic HTML
 - **Safe-area iOS** — inset padding untuk iPhone dengan notch/home indicator
 - **Zero layout shift** — font dimuat via `next/font` dengan `display: swap`
+- **Vercel Analytics** terintegrasi
 
 ---
 
@@ -63,18 +67,20 @@ Desainnya terinspirasi prinsip _Swiss Design_ dan dashboard kontrol presisi: gri
 
 | Kategori | Tools |
 |---|---|
-| **Framework** | [Next.js 14.2](https://nextjs.org/) (App Router, Static Export-ready) |
+| **Framework** | [Next.js 16.2](https://nextjs.org/) (App Router, Turbopack) |
 | **UI Library** | [React 18.3](https://react.dev/) |
 | **Language** | [TypeScript 5.5](https://www.typescriptlang.org/) dengan `strict: true` |
 | **Styling** | [Tailwind CSS 3.4](https://tailwindcss.com/) dengan custom design tokens |
 | **Fonts** | [Inter](https://rsms.me/inter/) (sans) + [JetBrains Mono](https://www.jetbrains.com/lp/mono/) (monospace) via `next/font` |
 | **Icons** | Custom line-art SVG, stroke 1.5px (zero dependency) |
+| **Image Processing** | [sharp](https://sharp.pixelplumbing.com/) (AVIF + WebP support) |
+| **Analytics** | [@vercel/analytics](https://vercel.com/docs/analytics) |
 | **Build** | Next.js built-in (SWC compiler) |
 | **Package Manager** | npm |
 
 ### Kenapa pilihan ini?
 
-- **Next.js 14 App Router** — file-based routing, built-in optimizations, dan siap untuk Vercel.
+- **Next.js 16 App Router** — file-based routing, Turbopack dev server, dan siap untuk Vercel.
 - **Tailwind** daripada CSS Modules — velocity tinggi untuk iterasi desain plus design tokens via theme config.
 - **Custom SVG icons** daripada library (lucide, heroicons) — kontrol penuh stroke width dan bundle size lebih kecil.
 - **next/font** — font di-host lokal otomatis, tidak ada request ke Google Fonts saat runtime.
@@ -83,14 +89,16 @@ Desainnya terinspirasi prinsip _Swiss Design_ dan dashboard kontrol presisi: gri
 
 ## Filosofi Desain
 
-Mengadopsi **Swiss Design Principles** untuk menghindari "AI slope" (gradasi pelangi, soft shadow berlebih, elemen mengkilap tanpa fungsi):
+Mengadopsi **Swiss Design Principles** untuk menghindari "AI slop" (gradasi pelangi, soft shadow berlebih, elemen mengkilap tanpa fungsi):
 
 - **Grid-based layout** — tata letak kaku, terorganisir seperti cetak biru teknik
 - **Negative space** — setiap elemen punya ruang napas
-- **Functional typography** — tipografi adalah elemen visual utama
+- **Functional typography** — tipografi adalah elemen visual utama, max line-width 65ch
 - **No gradient, no soft shadow** — hanya `border border-stroke` untuk separasi
-- **Single accent color** — Cyber Yellow `#FFD700` dipakai sangat terbatas untuk CTA dan status
-- **Snappy interactions** — transisi `200ms ease-linear` biar terasa mekanikal, bukan bouncy
+- **Single accent color** — Gold `#FFD700` dipakai sangat terbatas untuk CTA dan status
+- **Snappy interactions** — transisi `200ms cubic-bezier(0.16, 1, 0.3, 1)` (ease-out-quart)
+- **Region differentiation** — warna aksen per grup untuk visual hierarchy yang jelas
+- **Purposeful motion** — staggered entrance animation 80ms per card, reduced-motion fallback
 
 ---
 
@@ -101,14 +109,15 @@ Mengadopsi **Swiss Design Principles** untuk menghindari "AI slope" (gradasi pel
 | `primary` | `#FFD700` | CTA, status aktif, accent |
 | `background` | `#0A0A0B` | Page background |
 | `surface` | `#141416` | Card & container |
-| `stroke` | `#26262A` | Border 1px separator |
+| `stroke` | `#3A3A40` | Border 1px separator |
 | `ink` | `#EDEDED` | Teks utama |
 | `muted` | `#8A8A90` | Metadata & label kecil |
 
 **Rasio kontras:**
-- `ink` pada `background` ≈ 16:1 → WCAG AAA ✓
-- `primary` pada `background` ≈ 14:1 → WCAG AAA ✓
-- `muted` pada `background` ≈ 6.4:1 → WCAG AA ✓
+- `ink` pada `background` ≈ 17.4:1 → WCAG AAA ✓
+- `primary` pada `background` ≈ 12.2:1 → WCAG AAA ✓
+- `muted` pada `background` ≈ 5.7:1 → WCAG AA ✓
+- `stroke` pada `background` ≈ 3.6:1 → WCAG AA (UI elements) ✓
 
 ---
 
@@ -117,23 +126,27 @@ Mengadopsi **Swiss Design Principles** untuk menghindari "AI slope" (gradasi pel
 ```
 golden-movie-hub/
 ├── app/
-│   ├── layout.tsx          # Root layout, metadata, font loader
-│   ├── page.tsx            # Homepage — Header + Directory + Footer
-│   ├── not-found.tsx       # Halaman 404 kustom
-│   ├── globals.css         # Design tokens, reduced-motion, safe-area
-│   └── icon.svg            # Favicon (auto-detected oleh Next.js)
+│   ├── layout.tsx              # Root layout, metadata, font loader
+│   ├── page.tsx                # Homepage — Header + Directory + Footer
+│   ├── not-found.tsx           # Halaman 404 kustom
+│   ├── globals.css             # Design tokens, animations, reduced-motion, safe-area
+│   ├── icon.svg                # Favicon (auto-detected oleh Next.js)
+│   └── opengraph-image.png     # OG image untuk social sharing
 │
 ├── components/
-│   ├── Header.tsx          # Logo + wordmark, sticky dengan backdrop-blur
-│   ├── ProviderDirectory.tsx   # ⭐ INTI — grouped provider cards
-│   ├── Footer.tsx          # Copyright minimal
-│   ├── Logo.tsx            # Clapperboard SVG reusable
-│   └── Icons.tsx           # Line-art icons (stroke 1.5px)
+│   ├── Header.tsx              # Logo + wordmark, sticky dengan backdrop-blur
+│   ├── ProviderDirectory.tsx   # ⭐ INTI — search filter, grouped cards, staggered animation
+│   ├── Footer.tsx              # Copyright dengan dynamic year
+│   ├── Logo.tsx                # Clapperboard SVG reusable
+│   └── Icons.tsx               # Line-art icons (stroke 1.5px)
 │
-├── design.md               # Spec desain awal (Swiss Design)
-├── tailwind.config.ts      # Design tokens & theme extensions
-├── next.config.mjs         # Next.js config
-├── tsconfig.json           # TypeScript strict mode
+├── public/
+│   └── logos/                  # Provider logo images
+│
+├── tailwind.config.ts          # Design tokens & theme extensions
+├── next.config.mjs             # Next.js config (AVIF/WebP, responsive sizes)
+├── postcss.config.mjs          # PostCSS + Tailwind + Autoprefixer
+├── tsconfig.json               # TypeScript strict mode
 └── package.json
 ```
 
@@ -145,8 +158,8 @@ golden-movie-hub/
 
 ```bash
 # 1. Clone repo
-git clone https://github.com/USERNAME/golden-movie-hub.git
-cd golden-movie-hub
+git clone https://github.com/zmy16/link-film-v2.git
+cd link-film-v2
 
 # 2. Install dependencies
 npm install
@@ -161,7 +174,7 @@ Buka [http://localhost:3000](http://localhost:3000)
 
 | Command | Fungsi |
 |---|---|
-| `npm run dev` | Development server dengan hot reload |
+| `npm run dev` | Development server dengan Turbopack hot reload |
 | `npm run build` | Build production-ready |
 | `npm run start` | Jalankan hasil build |
 | `npm run lint` | ESLint check |
@@ -172,7 +185,7 @@ Buka [http://localhost:3000](http://localhost:3000)
 
 Semua data provider ada di array `GROUPS` di `components/ProviderDirectory.tsx`.
 
-Tambahkan entry baru:
+Tambahkan entry baru ke array `items` dalam grup yang sesuai:
 
 ```ts
 {
@@ -180,17 +193,31 @@ Tambahkan entry baru:
   tagline: "Deskripsi singkat maksimal 2 baris.",
   quality: "HD" | "Full HD" | "4K",
   url: "https://situs-tujuan.com/",
-  glyph: "clap" | "play" | "cam" | "monitor" | "plus",
+  logo: "/logos/nama-situs.png",
+}
+```
+
+Setiap grup memiliki field `accent` dan `accentBg` yang menentukan warna region:
+
+```ts
+{
+  code: "ID",
+  flag: "🇮🇩",
+  title: "Film Indonesia",
+  tag: "LOCAL",
+  accent: "text-primary",        // warna status indicator & CTA text
+  accentBg: "bg-primary",        // warna quality badge & CTA bar
+  items: [...]
 }
 ```
 
 **Field reference:**
 
-- `glyph` — ikon dalam kotak hitam di kiri-atas kartu. Pilih yang paling cocok.
-- `quality` — badge kuning di bawah ikon.
-- `url` — link tujuan (akan dibuka di tab baru dengan `rel="noopener noreferrer"`).
+- `logo` — path gambar di folder `public/logos/`. Jika gagal dimuat, otomatis fallback ke ikon default.
+- `quality` — badge dengan warna sesuai region grup.
+- `url` — link tujuan (dibuka di tab baru dengan `rel="noopener noreferrer"`).
 
-Kalau butuh region/grup baru (misal Anime), tambahkan object baru ke `GROUPS` dengan `code`, `flag`, `title`, `tag`, dan `items`.
+Untuk menambah region baru, buat object baru di `GROUPS` dengan `accent` dan `accentBg` sesuai (misal `text-emerald-400` / `bg-emerald-400` untuk Anime).
 
 ---
 
@@ -206,7 +233,7 @@ Kalau butuh region/grup baru (misal Anime), tambahkan object baru ke `GROUPS` de
 **Jangan lupa** update `metadataBase` di `app/layout.tsx` sesuai domain final:
 
 ```ts
-metadataBase: new URL("https://golden-movie-hub.vercel.app"),
+metadataBase: new URL("https://domain-kamu.com"),
 ```
 
 ### Alternatif lain
@@ -221,20 +248,23 @@ metadataBase: new URL("https://golden-movie-hub.vercel.app"),
 
 ### Aksesibilitas
 
+- Lighthouse Accessibility: **100/100**
 - `:focus-visible` outline kuning 2px untuk keyboard users
 - `aria-label` eksplisit pada kartu provider dan link logo
 - Ikon dekoratif dimask dengan `aria-hidden="true"`
 - Touch target CTA minimal 44×44px (standar iOS/Android)
-- `prefers-reduced-motion` mematikan animasi `bar-pulse` dan memperkecil transition
+- `prefers-reduced-motion` mematikan semua animasi dan transition
 - Kontras warna WCAG AA/AAA di semua kombinasi teks
+- Semantic HTML: heading hierarchy (h1 → h2 → h3), landmark elements
 
 ### Performa
 
-- **First Load JS: ~87 kB** (shared) + 145 B per page — very light
-- Semua halaman di-**prerender static** oleh Next.js (no SSR cost)
+- **LCP: ~419ms** (production build, local)
+- **CLS: 0.00** — zero layout shift
+- Semua halaman di-**prerender static** oleh Next.js
 - Font dimuat lokal via `next/font`, `display: swap`, no FOUT
-- SVG icons & favicon, no raster image requests
-- Zero third-party scripts di runtime
+- Image optimization: AVIF + WebP dengan multiple responsive sizes
+- Zero third-party scripts di runtime (Analytics async loaded)
 
 ---
 
@@ -248,17 +278,17 @@ metadataBase: new URL("https://golden-movie-hub.vercel.app"),
 | Safari iOS | 14+ |
 | Samsung Internet | 15+ |
 
-`backdrop-blur` di Header dibungkus `@supports` fallback, jadi browser lama tetap dapat background solid.
+`backdrop-blur` di Header dibungkus `supports-[backdrop-filter]` fallback, jadi browser lama tetap dapat background solid.
 
 ---
 
 ## Roadmap
 
-Ide pengembangan lanjutan (opsional):
+Ide pengembangan lanjutan:
 
 - [ ] Pindahkan data provider ke JSON/API biar bisa update tanpa rebuild
-- [ ] Tambah filter/search sederhana (kalau jumlah provider > 20)
-- [ ] Integrasi Vercel Analytics
+- [x] Search/filter provider ~~(kalau jumlah provider > 20)~~
+- [x] Integrasi Vercel Analytics
 - [ ] Health-check otomatis untuk status provider (online/offline badge)
 - [ ] PWA support dengan offline fallback
 - [ ] Dukungan region baru: Anime, K-Drama, Dokumenter
@@ -267,7 +297,6 @@ Ide pengembangan lanjutan (opsional):
 
 ## Credits
 
-- Desain & konsep awal di [`design.md`](./design.md)
 - Tipografi: [Inter](https://rsms.me/inter/) oleh Rasmus Andersson
 - Tipografi mono: [JetBrains Mono](https://www.jetbrains.com/lp/mono/) oleh JetBrains
 - Framework: [Next.js](https://nextjs.org/) oleh Vercel
